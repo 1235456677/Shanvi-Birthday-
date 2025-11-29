@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Shanvi!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #1a1a2e; /* Dark theme background */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        /* 3D Container */
+        .scene {
+            width: 250px;
+            height: 250px;
+            perspective: 1000px;
+        }
+
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateCube 12s infinite linear;
+        }
+
+        .cube__face {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #e94560;
+            box-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a1a2e;
+            text-align: center;
+            flex-direction: column;
+            backface-visibility: visible; /* Makes inside visible transparent */
+        }
+
+        /* Styling individual faces */
+        .face--front  { transform: rotateY(  0deg) translateZ(125px); background: linear-gradient(45deg, #ff9a9e, #fad0c4); }
+        .face--right  { transform: rotateY( 90deg) translateZ(125px); background: linear-gradient(45deg, #a18cd1, #fbc2eb); }
+        .face--back   { transform: rotateY(180deg) translateZ(125px); background: linear-gradient(45deg, #fad0c4, #ffd1ff); }
+        .face--left   { transform: rotateY(-90deg) translateZ(125px); background: linear-gradient(45deg, #ffecd2, #fcb69f); }
+        .face--top    { transform: rotateX( 90deg) translateZ(125px); background: linear-gradient(45deg, #ff9a9e, #fecfef); }
+        .face--bottom { transform: rotateX(-90deg) translateZ(125px); background: linear-gradient(45deg, #e0c3fc, #8ec5fc); }
+
+        h2 { margin: 0; font-size: 30px; }
+        p { margin: 5px 0 0; font-size: 16px; color: #555; }
+
+        /* Animation Keyframes */
+        @keyframes rotateCube {
+            0%   { transform: rotateX(0deg) rotateY(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        /* Wish Text at Bottom */
+        .wish-text {
+            position: absolute;
+            bottom: 50px;
+            color: white;
+            text-align: center;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+
+        .btn {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #e94560;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <div class="scene">
+        <div class="cube">
+            <div class="cube__face face--front">
+                <h2>Happy<br>Birthday!</h2>
+                <p>🎂</p>
+            </div>
+            <div class="cube__face face--back">
+                <h2>Shanvi<br>Kumari</h2>
+                <p>👸</p>
+            </div>
+            <div class="cube__face face--right">
+                <h2>Stay<br>Blessed</h2>
+                <p>✨</p>
+            </div>
+            <div class="cube__face face--left">
+                <h2>Party<br>Time!</h2>
+                <p>🎉</p>
+            </div>
+            <div class="cube__face face--top">
+                <h2>Best<br>Wishes</h2>
+                <p>❤️</p>
+            </div>
+            <div class="cube__face face--bottom">
+                <h2>Enjoy<br>Your Day</h2>
+                <p>🎈</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="wish-text">
+        <h1>Happy Birthday Shanvi!</h1>
+        <button class="btn" onclick="celebrate()">Click for Surprise 🎉</button>
+    </div>
+
+    <script>
+        // Automatic confetti on load
+        window.onload = function() {
+            celebrate();
+        };
+
+        function celebrate() {
+            var duration = 3 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            var random = function(min, max) {
+              return Math.random() * (max - min) + min;
+            };
+
+            var interval = setInterval(function() {
+              var timeLeft = animationEnd - Date.now();
+
+              if (timeLeft <= 0) {
+                return clearInterval(interval);
+              }
+
+              var particleCount = 50 * (timeLeft / duration);
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.1, 0.3), y: Math.random() - 0.2 } }));
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: random(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        }
+    </script>
+</body>
+</html>
